@@ -9,4 +9,4 @@
 
 to any of the other formats.
 
-**Henkan** is a fundamental building block of the **Ashiva** CMS.
+**Henkan** is a fundamental building block of the **Ashiva CMS**.
