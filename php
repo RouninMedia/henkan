@@ -43,7 +43,6 @@ function txt($Page) {
 function val($Page) {
 	$Page = url($Page);
 	$Page = str_replace('/','__',$Page);
-	if ($Page == 'hands-off-nhs-homepage') {$Page = 'home';}
 	
 	return $Page;
 }
