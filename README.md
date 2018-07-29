@@ -11,7 +11,7 @@ to any of the other formats.
 
 **Henkan** is a fundamental building block of the **Ashiva CMS** in that it allows _different (but translatable)_ versions of the same core string to be used in:
 
- - Variable Names
+ - Data Keys
  - URL Paths
  - HTML Attributes
  - CSS Classes
