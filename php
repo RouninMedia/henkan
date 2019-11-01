@@ -35,7 +35,7 @@ function format($Page) {
     return $Page;
 }
 
-function url($Page) {
+function url($Page, $raw = FALSE) {
     $Page = format($Page);
     $Page = str_replace('[>]', '/', $Page);
     $Page = str_replace('-[\]-', '----', $Page);
@@ -49,6 +49,13 @@ function url($Page) {
     /* CUSTOM */
     $Page = str_replace('sicherheitsdatenblätter', 'sicherheitsdatenblaetter', $Page);
 
+    // Convert all extended European characters into their restricted equivalents?
+
+    if ($raw === TRUE) {
+
+      $Page = str_replace('/','--', $Page);
+    }
+
     return $Page;
 }
 
@@ -58,7 +65,7 @@ function val($Page) {
     return $Page;
 }
 
-function txt($Page) {
+function txt($Page, $raw = FALSE) {
 
     $Page = format($Page);
 
@@ -85,6 +92,13 @@ function txt($Page) {
     $Page = str_replace('For', 'for', $Page);
     $Page = str_replace('Uv', 'UV', $Page);
     $Page = str_replace('3d', '3D', $Page);
+
+    if ($raw === TRUE) {
+
+      $Page = str_replace(' &#9654; ',' > ', $Page);
+      $Page = str_replace(' &amp; ',' & ', $Page);
+    }
+
     return $Page;
 }
 
@@ -93,14 +107,6 @@ function cml($Page) {
     $Page = txt($Page);
     $Page = str_replace(' ', '', $Page);
     $Page = strtolower($Page[0]).substr($Page, 1);
-    return $Page;
-}
-
-
-function raw($Page) {
-    $Page = txt($Page);
-    $Page = str_replace(' &#9654; ',' > ', $Page);
-    $Page = str_replace(' &amp; ',' & ', $Page);
     return $Page;
 }
 
