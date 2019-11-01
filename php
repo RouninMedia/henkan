@@ -1,7 +1,7 @@
 <?php
 
 function format($Page) {
-    $Page = preg_replace('/([a-z])([A-Z|0-9+])/', '$1_$2', $Page);
+    $Page = preg_replace('/([a-z])([A-Z])/', '$1_$2', $Page);
 
     $Page = str_replace('T_3', 'T3', $Page);
     $Page = str_replace('t_3', 't3', $Page);
