@@ -10,9 +10,9 @@
 
 to any of the other formats.
 
-A fifth format can also be converted to (although not from):
+A sixth format can also be converted to (although not from):
 
- 5) Raw Text
+ 6) Raw Text
 
 **Henkan** is a fundamental building block of the **Ashiva CMS** in that it allows _different (but translatable)_ versions of the same core string to be used in:
 
