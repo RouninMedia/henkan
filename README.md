@@ -2,17 +2,15 @@
 
 **Henkan** (meaning _conversion_ or _transformation_ in Japanese) converts a short piece of text from any one of ***5 formats***:
 
- 1) Standard Template
+ 1) Source Template Format
  2) URL
  3) HTML Attribute Value
- 4) Plain Text
+ 4) Text Copy
  5) camelCase
 
 to any of the other formats.
 
-A sixth format can also be converted to (although not from):
-
- 6) Raw Text
+The output of any of these conversions can also be influenced by modification of the optional `raw` parameter.
 
 **Henkan** is a fundamental building block of the **Ashiva CMS** in that it allows _different (but translatable)_ versions of the same core string to be used in:
 
@@ -22,10 +20,7 @@ A sixth format can also be converted to (although not from):
  - CSS Classes
  - The plain text content of Headings, Menu Items etc.
 
-The 5 functions of **Henkan** were originally written in **PHP** but have proven so useful, they have since been rewritten in **javascript** and may, in future, be rewritten in other languages, libraries or frameworks, including (but not limited to):
+**Henkan** was originally written in **PHP** but has proven so useful, it has since been rewritten in **javascript** and may, in future, be rewritten in other languages, libraries or frameworks, including:
 
- - jQuery
- - React.js
- - AngularJS
- - CoffeeScript
  - Node.js
+ - jQuery
