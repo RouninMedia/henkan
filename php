@@ -1,7 +1,11 @@
 <?php
 
-function format($Page) {
-    $Page = preg_replace('/([a-z])([A-Z])/', '$1_$2', $Page);
+function format($Page, $raw = FALSE) {
+
+    if ($raw !== TRUE) {
+    
+      $Page = preg_replace('/([a-z])([A-Z])/', '$1_$2', $Page);
+    }
 
     $Page = str_replace('T_3', 'T3', $Page);
     $Page = str_replace('t_3', 't3', $Page);
@@ -36,8 +40,19 @@ function format($Page) {
 }
 
 function url($Page, $raw = FALSE) {
-    $Page = format($Page);
-    $Page = str_replace('[>]', '/', $Page);
+
+    $Page = format($Page, $raw);
+
+    if ($raw !== TRUE) {
+
+      $Page = str_replace('[>]', '/', $Page);
+    }
+
+    else {
+
+      $Page = str_replace('[>]','--', $Page);
+    }
+
     $Page = str_replace('-[\]-', '----', $Page);
     $Page = str_replace('-[:]-', '---', $Page);
     $Page = str_replace('-[@]-', '--', $Page);
@@ -50,11 +65,6 @@ function url($Page, $raw = FALSE) {
     $Page = str_replace('sicherheitsdatenblätter', 'sicherheitsdatenblaetter', $Page);
 
     // Convert all extended European characters into their restricted equivalents?
-
-    if ($raw === TRUE) {
-
-      $Page = str_replace('/','--', $Page);
-    }
 
     return $Page;
 }
