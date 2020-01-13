@@ -1,16 +1,18 @@
 # Henkan
 
-**Henkan** (meaning _conversion_ or _transformation_ in Japanese) converts a short piece of text from any one of ***5 formats***:
+**Henkan** (meaning _conversion_ or _transformation_ in Japanese) converts a short piece of text from any one of ***4 formats***:
 
  1) Source Template Format
  2) URL
  3) HTML Attribute Value
  4) Text Copy
- 5) camelCase
 
 to any of the other formats.
 
-The output of any of these conversions can also be influenced by modification of the optional `raw` parameter.
+The output of any of these conversions can also be influenced by modification of two optional parameters:
+
+ - `$Style` : `'henkan'` | `raw`
+ - `$Case` : `'henkan'` | `raw`  
 
 **Henkan** is a fundamental building block of the **Ashiva CMS** in that it allows _different (but translatable)_ versions of the same core string to be used in:
 
