@@ -11,8 +11,8 @@ to any of the other formats.
 
 The output of any of these conversions can also be influenced by modification of two optional parameters:
 
- - `$Style` : `'henkan'` | `raw`
- - `$Case` : `'henkan'` | `raw`  
+ - `$Style` : `henkan` | `raw`
+ - `$Case` : `inherited` | `PascalCase` | `camelCase` | `Serpent_Case` | `snake_case` 
 
 **Henkan** is a fundamental building block of the **Ashiva CMS** in that it allows _different (but translatable)_ versions of the same core string to be used in:
 
