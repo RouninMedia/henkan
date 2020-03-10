@@ -25,4 +25,3 @@ The output of any of these conversions can also be influenced by modification of
 **Henkan** was originally written in **PHP** but has proven so useful, it has since been rewritten in **javascript** and may, in future, be rewritten in other languages, libraries or frameworks, including:
 
  - Node.js
- - jQuery
