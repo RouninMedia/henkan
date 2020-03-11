@@ -99,13 +99,18 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
 
   $Page = format($Page, $Style, $Case);
 
-  $Page = explode('[>]', $Page);
-  for ($i = 0; $i < count($Page); $i++) {if ($Page[$i] === '') continue; $Page[$i] = strtoupper($Page[$i][0]).substr($Page[$i], 1);}
-  $Page = implode(' &#9654; ', $Page);
-
-  $Page = explode('-', $Page);
-  for ($i = 0; $i < count($Page); $i++) {if ($Page[$i] === '') continue; $Page[$i] = strtoupper($Page[$i][0]).substr($Page[$i], 1);}
-  $Page = implode(' ', $Page);
+  $Page = str_replace('[>]', ' &#9654; ', $Page);
+  $Page = str_replace('-', ' ', $Page);
+  
+  $First_Letter = mb_substr($Page, 0, 1, 'UTF-8'); // This needs to be ALL First Letters... but not currently sure how.
+  
+  if (strlen($First_Letter) !== mb_strlen($First_Letter)) {
+    
+    $Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');
+    $Page = htmlentities($Page, ENT_HTML5, 'UTF-8');
+  }
+  
+  else {$Page = ucwords($Page);}
 
   $Page = str_replace(' [+] ', ' &amp; ' ,$Page);
   $Page = str_replace(' [\] ', ' / ' ,$Page);
@@ -114,6 +119,7 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace(' [{] ', ' (' ,$Page);
   $Page = str_replace(' [}] ', ') ' ,$Page);
   $Page = trim($Page);
+  // $Page = urldecode($Page);
 
   /* CUSTOM */
   $Page = str_replace('Soak Off', 'Soak-Off', $Page);
