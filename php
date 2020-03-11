@@ -69,15 +69,19 @@ function url($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace('-[\]-', '----', $Page);
   $Page = str_replace('-[:]-', '---', $Page);
   $Page = str_replace('-[@]-', '--', $Page);
-  $Page = str_replace('-[+]-', '-and-', $Page);
+
+
+  switch (getLanguage()) {
+
+    case ('de') : $Page = str_replace('-[+]-', '-und-', $Page); break;
+    case ('es') : $Page = str_replace('-[+]-', '-y-', $Page); break;
+    case ('fr') : $Page = str_replace('-[+]-', '-et-', $Page); break;
+    default : $Page = str_replace('-[+]-', '-and-', $Page);
+  }
+  
   $Page = str_replace('-[{]-', '_(', $Page);
   $Page = str_replace('-[}]-', ')_', $Page);
-  $Page = strtolower($Page);
-
-  /* CUSTOM */
-  $Page = str_replace('sicherheitsdatenblätter', 'sicherheitsdatenblaetter', $Page);
-
-  // Convert all extended European characters into their restricted equivalents?
+  $Page = (mb_strlen($Page) !== strlen($Page)) ? mb_strtolower($Page) : strtolower($Page);
 
   if ($Style === 'raw') {
 
