@@ -9,7 +9,7 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
   switch ($Case) {
-  
+
     // 'inherited', 'PascalCase', 'camelCase', 'Serpent_Case', 'snake_case'
 
     case ('camelCase') :
@@ -31,33 +31,18 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace('t_3', 't3', $Page);
 
   $Page = str_replace('__', '[>]', $Page);
-  $Page = str_replace('_', '-', $Page);
-  $Page = str_replace(' ', '-', $Page);
-
-  $Page = str_replace('-/-', '-[\]-', $Page);
-  $Page = str_replace('----', '-[\]-', $Page);
+  $Page = str_replace(['_', ' '], '-', $Page);
+  $Page = str_replace(['----', '-/-'], '-[\]-', $Page);
   $Page = str_replace('---', '-[:]-', $Page);
-  $Page = str_replace('--', '-[@]-', $Page);
-  $Page = str_replace(',-', '-[@]-', $Page);
-
-  $Page = str_replace('/', '[>]', $Page);
-  $Page = str_replace('-&#9654;-', '[>]', $Page);
-  $Page = str_replace('&#9654;', '[>]', $Page);
-  $Page = str_replace('->-', '[>]', $Page);
-
-  $Page = str_replace('-&amp;-', '-[+]-', $Page);
-  $Page = str_replace('&amp;', '-[+]-', $Page);
-  $Page = str_replace('-and-', '-[+]-', $Page);
-  $Page = str_replace('-&-', '-[+]-', $Page);
-
+  $Page = str_replace(['--', ',-'], '-[@]-', $Page);
+  $Page = str_replace(['/', '-&#9654;-', '&#9654;'], '[>]', $Page);
+  $Page = str_replace(['-&-', '-&amp;-', '&amp;', '-and-', '-et-', '-und-', '-y-'], '-[+]-', $Page);
   $Page = str_replace('-(', '-[{]-', $Page);
   $Page = str_replace(')-', '-[}]-', $Page);
 
-  /* CUSTOM */
-  $Page = str_replace('sicherheitsdatenblaetter', 'sicherheitsdatenblätter', $Page);
-
   return $Page;
 }
+
 
 function url($Page, $Style = 'henkan', $Case = 'inherited') {
 
@@ -94,6 +79,7 @@ function url($Page, $Style = 'henkan', $Case = 'inherited') {
 function val($Page) {
   $Page = url($Page);
   $Page = str_replace('/', '__', $Page);
+
   return $Page;
 }
 
@@ -109,7 +95,7 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   $First_Letter = mb_substr($Page, 0, 1, 'UTF-8'); // This needs to be ALL First Letters... but not currently sure how.
   
   if (strlen($First_Letter) !== mb_strlen($First_Letter)) {
-    
+
     $Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');
     $Page = htmlentities($Page, ENT_HTML5, 'UTF-8');
   }
@@ -148,11 +134,13 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   return $Page;
 }
 
-function src($Page) {
+function src($Page, $Style = 'henkan', $Case = 'inherited') {
+
+  if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
   $Page = txt($Page);
-  $Page = str_replace(' &#9654; ','[>]', $Page);
-  $Page = str_replace(' ','_', $Page);
+  $Page = str_replace(' ', '_', $Page);
+  $Page = str_replace('_&#9654;_', '[>]', $Page);
   $Page = str_replace('_&amp;_','_[+]_', $Page);
   $Page = str_replace('_/_','_[\]_', $Page);
   $Page = str_replace('_-_','_[:]_', $Page);
@@ -161,6 +149,12 @@ function src($Page) {
   $Page = str_replace('(','_[{]_', $Page);
   $Page = str_replace(')_','_[}]_', $Page);
   $Page = str_replace(')','_[}]_', $Page);
+
+  if ($Style === 'raw') {
+
+    $Page = str_replace('[>]','__', $Page);
+  }
+
   return $Page;
 }
 
