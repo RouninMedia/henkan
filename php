@@ -8,6 +8,8 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
 
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
+  $Page = urldecode($Page);
+
   switch ($Case) {
 
     // 'inherited', 'PascalCase', 'camelCase', 'Serpent_Case', 'snake_case'
@@ -89,18 +91,9 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
 
   $Page = format($Page, $Style, $Case);
 
+  $Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');
   $Page = str_replace('[>]', ' &#9654; ', $Page);
   $Page = str_replace('-', ' ', $Page);
-  
-  $First_Letter = mb_substr($Page, 0, 1, 'UTF-8'); // This needs to be ALL First Letters... but not currently sure how.
-  
-  if (strlen($First_Letter) !== mb_strlen($First_Letter)) {
-
-    $Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');
-    $Page = htmlentities($Page, ENT_HTML5, 'UTF-8');
-  }
-  
-  else {$Page = ucwords($Page);}
 
   $Page = str_replace(' [+] ', ' &amp; ' ,$Page);
   $Page = str_replace(' [\] ', ' / ' ,$Page);
@@ -109,7 +102,6 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace(' [{] ', ' (' ,$Page);
   $Page = str_replace(' [}] ', ') ' ,$Page);
   $Page = trim($Page);
-  // $Page = urldecode($Page);
 
   /* CUSTOM */
   $Page = str_replace('Soak Off', 'Soak-Off', $Page);
@@ -120,11 +112,37 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace('3d', '3D', $Page);
   $Page = str_replace('Sb', 'SB', $Page);
 
+  if (strlen($Page) !== mb_strlen($Page)) {
+
+    $Page_Array = preg_split('//u', $Page, -1, PREG_SPLIT_NO_EMPTY);
+
+    for ($i = 0; $i < count($Page_Array); $i++) {
+
+      if (strlen($Page_Array[$i]) !== mb_strlen($Page_Array[$i])) {
+
+        $Page_Array[$i] = htmlentities($Page_Array[$i], ENT_HTML5, 'UTF-8');
+      }
+    }
+
+    $Page = implode('', $Page_Array);
+  }
+
+
   if ($Style === 'raw') {
 
-    $Page = str_replace(' &#9654; ',' > ', $Page);
+    $Page = str_replace('&#9654;','>', $Page);
     $Page = str_replace(' &amp; ',' & ', $Page);
+
+    $Raw_Page_Array = explode('>', $Page);
+  
+    for ($i = 0; $i < count($Raw_Page_Array); $i++) {
+
+      $Raw_Page_Array[$i] = html_entity_decode($Raw_Page_Array[$i], ENT_HTML5, 'UTF-8');
+    }
+
+    $Page = implode('>', $Raw_Page_Array);
   }
+  
 
   if ($Case === 'camelCase') {
 
@@ -140,7 +158,7 @@ function src($Page, $Style = 'henkan', $Case = 'inherited') {
 
   $Page = txt($Page);
   $Page = str_replace(' ', '_', $Page);
-  $Page = str_replace('_&#9654;_', '[>]', $Page);
+  $Page = str_replace(['_&#9654;_', '&#9654;_', '&#9654;'], '[>]', $Page);
   $Page = str_replace('_&amp;_','_[+]_', $Page);
   $Page = str_replace('_/_','_[\]_', $Page);
   $Page = str_replace('_-_','_[:]_', $Page);
