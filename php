@@ -130,8 +130,8 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
 
   if ($Style === 'raw') {
 
-    $Page = str_replace('&#9654;','>', $Page);
-    $Page = str_replace(' &amp; ',' & ', $Page);
+    $Page = str_replace('&#9654;', '>', $Page);
+    $Page = str_replace(' &amp; ', ' & ', $Page);
 
     $Raw_Page_Array = explode('>', $Page);
   
