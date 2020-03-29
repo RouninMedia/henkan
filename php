@@ -168,6 +168,17 @@ function src($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace(')_','_[}]_', $Page);
   $Page = str_replace(')','_[}]_', $Page);
 
+
+  $Page_Array = explode('[>]', $Page);
+  
+  for ($i = 0; $i < count($Page_Array); $i++) {
+
+    $Page_Array[$i] = html_entity_decode($Page_Array[$i], ENT_HTML5, 'UTF-8');
+  }
+
+  $Page = implode('[>]', $Page_Array);
+  
+
   if ($Style === 'raw') {
 
     $Page = str_replace('[>]','__', $Page);
