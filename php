@@ -168,6 +168,10 @@ function src($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace(')_','_[}]_', $Page);
   $Page = str_replace(')','_[}]_', $Page);
 
+  if ($Style === 'raw') {
+
+    $Page = str_replace('[>]','__', $Page);
+  }
 
   $Page_Array = explode('[>]', $Page);
   
@@ -178,11 +182,6 @@ function src($Page, $Style = 'henkan', $Case = 'inherited') {
 
   $Page = implode('[>]', $Page_Array);
   
-
-  if ($Style === 'raw') {
-
-    $Page = str_replace('[>]','__', $Page);
-  }
 
   return $Page;
 }
