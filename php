@@ -4,7 +4,7 @@
  //* CORE FUNCTIONS :: ASHIVA FORMATTING *//
 //***************************************//
 
-function format($Page, $Style = 'henkan', $Case = 'inherited') {
+function format($Page, $Style = 'henkan', $Case = 'No_Case_Applied') {
 
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
@@ -12,7 +12,7 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
 
   switch ($Case) {
 
-    // 'inherited', 'PascalCase', 'camelCase', 'Serpent_Case', 'snake_case'
+    // 'No_Case_Applied', 'PascalCase', 'camelCase', 'Serpent_Case', 'snake_case'
 
     case ('camelCase') :
 
@@ -46,7 +46,7 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
 }
 
 
-function url($Page, $Style = 'henkan', $Case = 'inherited') {
+function url($Page, $Style = 'henkan', $Case = 'No_Case_Applied') {
 
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
@@ -85,13 +85,13 @@ function val($Page) {
   return $Page;
 }
 
-function txt($Page, $Style = 'henkan', $Case = 'inherited') {
+function txt($Page, $Style = 'henkan', $Case = 'No_Case_Applied') {
 
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
   $Page = format($Page, $Style, $Case);
 
-  if ($Case === 'inherited') {$Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');}
+  if ($Case === 'No_Case_Applied') {$Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');}
 
   $Page = str_replace('[>]', ' &#9654; ', $Page);
   $Page = str_replace('-', ' ', $Page);
@@ -153,7 +153,7 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
   return $Page;
 }
 
-function src($Page, $Style = 'henkan', $Case = 'inherited') {
+function src($Page, $Style = 'henkan', $Case = 'No_Case_Applied') {
 
   if (!in_array($Style, ['henkan', 'raw'])) {$Case = $Style; $Style = 'henkan';}
 
