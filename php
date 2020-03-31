@@ -38,7 +38,7 @@ function format($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = str_replace('---', '-[:]-', $Page);
   $Page = str_replace(['--', ',-'], '-[@]-', $Page);
   $Page = str_replace(['/', '-&#9654;-', '&#9654;'], '[>]', $Page);
-  $Page = str_replace(['-&-', '-&amp;-', '&amp;', '-and-', '-et-', '-und-', '-y-'], '-[+]-', $Page);
+  $Page = str_replace(['-&-', '-&amp;-', '-and-', '-et-', '-und-', '-y-'], '-[$]-', $Page);
   $Page = str_replace('-(', '-[{]-', $Page);
   $Page = str_replace(')-', '-[}]-', $Page);
 
@@ -60,10 +60,10 @@ function url($Page, $Style = 'henkan', $Case = 'inherited') {
 
   switch (getLanguage()) {
 
-    case ('de') : $Page = str_replace('-[+]-', '-und-', $Page); break;
-    case ('es') : $Page = str_replace('-[+]-', '-y-', $Page); break;
-    case ('fr') : $Page = str_replace('-[+]-', '-et-', $Page); break;
-    default : $Page = str_replace('-[+]-', '-and-', $Page);
+    case ('de') : $Page = str_replace('-[$]-', '-und-', $Page); break;
+    case ('es') : $Page = str_replace('-[$]-', '-y-', $Page); break;
+    case ('fr') : $Page = str_replace('-[$]-', '-et-', $Page); break;
+    default : $Page = str_replace('-[$]-', '-and-', $Page);
   }
   
   $Page = str_replace('-[{]-', '_(', $Page);
@@ -91,11 +91,12 @@ function txt($Page, $Style = 'henkan', $Case = 'inherited') {
 
   $Page = format($Page, $Style, $Case);
 
-  $Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');
+  if ($Case === 'inherited') {$Page = mb_convert_case($Page, MB_CASE_TITLE, 'UTF-8');}
+
   $Page = str_replace('[>]', ' &#9654; ', $Page);
   $Page = str_replace('-', ' ', $Page);
 
-  $Page = str_replace(' [+] ', ' &amp; ' ,$Page);
+  $Page = str_replace(' [$] ', ' &amp; ' ,$Page);
   $Page = str_replace(' [\] ', ' / ' ,$Page);
   $Page = str_replace(' [:] ', ' - ' ,$Page);
   $Page = str_replace(' [@] ', ', ' ,$Page);
@@ -159,7 +160,7 @@ function src($Page, $Style = 'henkan', $Case = 'inherited') {
   $Page = txt($Page);
   $Page = str_replace(' ', '_', $Page);
   $Page = str_replace(['_&#9654;_', '&#9654;_', '&#9654;'], '[>]', $Page);
-  $Page = str_replace('_&amp;_','_[+]_', $Page);
+  $Page = str_replace('_&amp;_','_[$]_', $Page);
   $Page = str_replace('_/_','_[\]_', $Page);
   $Page = str_replace('_-_','_[:]_', $Page);
   $Page = str_replace(',_','_[@]_', $Page);
